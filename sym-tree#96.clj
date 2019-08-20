@@ -1,0 +1,30 @@
+(fn sym-bin? [[root left right :as tree]]
+  (print "root")
+  (print root)
+  (print "\n")
+  (print "left")
+  (print left)
+  (print "\n")
+  (print "right")
+  (print right)
+  (print "\n")
+  (let [tree-eq? (fn tree-eq? [[root1 left1 right1 :as tree1]
+                      [root2 left2 right2 :as tree2]]
+                   (and (= root1 root2)
+                        (= (count tree1) 3)
+                        (= (count tree1) (count tree2))
+                        (if (and (coll? left1)
+                                 (coll? left2))
+                          (tree-eq? left1 left2)
+                          (= left1 left2))
+                        (if (and (coll? right1)
+                                 (coll? right2))
+                          (tree-eq? right1 right2)
+                          (= right1 right2))))]
+    (and (not (coll? root))
+         (= (count tree) 3)
+         (if (and (coll? left)
+                  (coll? right))
+           (tree-eq? left right)
+           (= left right)))))
+
